@@ -10,13 +10,15 @@ package Modelo;
  * @author edwin
  */
 public class FacturaDetalle {
-    private int id ;
+    private String id ;
     private String cantdad;
     private String descripcion;
     private String valorUni;
     private String valorTotal;
-
-    public FacturaDetalle(int id, String cantdad, String descripcion, String valorUni, String valorTotal) {
+public FacturaDetalle(){
+    
+}
+    public FacturaDetalle(String id, String cantdad, String descripcion, String valorUni, String valorTotal) {
         this.id = id;
         this.cantdad = cantdad;
         this.descripcion = descripcion;
@@ -24,11 +26,11 @@ public class FacturaDetalle {
         this.valorTotal = valorTotal;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

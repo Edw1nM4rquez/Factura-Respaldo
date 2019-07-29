@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.GestionProductos;
 import com.sun.crypto.provider.DESCipher;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -37,14 +39,14 @@ public class Facturacion extends JFrame implements ActionListener {
     private JTextField descripcion;
     private JTextField valorUni;
     private JTextField valorTotal;
-    private JTextField total;
+    //private JTextField total;
     private JCheckBox c1,c2,c3;
     private JTable tablafacura;
-    public Facturacion(){
-        initcomponents();
-    }
+    private GestionProductos gesp;
+    private String idbase;
     
-    public void initcomponents(){
+    public  Facturacion(GestionProductos gesp){
+        this.gesp= gesp;
     this.setSize(1150,700);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Libreria Marquez");
@@ -74,12 +76,12 @@ public class Facturacion extends JFrame implements ActionListener {
     gb =new GridBagConstraints();
     gb.gridx=0;
     gb.gridy=3;
-    registro.add(new JLabel("R.u.c:0302127022747001 "), gb);
+    registro.add(new JLabel("R.u.c:27022747001 "), gb);
     
     gb =new GridBagConstraints();
     gb.gridx=0;
     gb.gridy=4;
-    registro.add(new JLabel("Aut.SRI.: 11233682564568677857"), gb);
+    registro.add(new JLabel("Aut.SRI.: 564568677857"), gb);
     
     gb =new GridBagConstraints();
     gb.gridx=0;
@@ -156,7 +158,7 @@ public class Facturacion extends JFrame implements ActionListener {
     telefono = new JTextField(10);
     registro.add(telefono, gb);
     
-        JButton guardar=new JButton("Guardar");
+        JButton guardar=new JButton("Insertar");
         guardar.addActionListener(this);
         guardar.setActionCommand("guardaes");
         
@@ -251,13 +253,32 @@ public class Facturacion extends JFrame implements ActionListener {
                JPanel scrollPane = new JPanel();
 		scrollPane.setLayout(new GridLayout(1, 1));
 		scrollPane.add(ip);
+                
+                JButton Guardar=new JButton("Guardar Compra");
+        Guardar.addActionListener(this);
+        Guardar.setActionCommand("compra");
 
     cp.add(registro);
     cp.add(scrollPane,BorderLayout.SOUTH);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        String comando = e.getActionCommand();
+		switch (comando){
+                    case "guardaes":
+                  
+                        gesp.IngresarCliente(idbase,tnombreCli.getText(), txtRuc.getText(), direccion.getText(), fecha.getText(), telefono.getText());
+                        gesp.IngresarProductos(idbase, cantidad.getText(), descripcion.getText(), valorUni.getText(), valorTotal.getText());
+                             cargarDatos();
+                        break;
+                    case "compra":
+                         JOptionPane.showMessageDialog(null,"Gracias por su compra") ;
+                         
+                        break;
+                }
     }
-    
+     public void cargarDatos(){
+		
+		tablafacura.setModel(new vista.ModelTablaFac(gesp.getFactuaDetalle()));
+	}
 }

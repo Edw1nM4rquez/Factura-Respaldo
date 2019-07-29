@@ -7,6 +7,7 @@
  */
 package Vista;
 
+import Controlador.GestionProductos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -38,7 +39,7 @@ ImageIcon Img;
 private String txtContraseña;
   JPasswordField password1 ;
   private boolean banderaOp;
-  
+  private GestionProductos gesp;
 public Inicio(){
     initcomponents();
 }
@@ -128,7 +129,8 @@ this.setTitle("Libreria Marquez");
                         regresarContra();
                           if(txtNombre.getText().equals("admin") && txtContraseña.equals("admin"))
                           {
-                           Facturacion f=new Facturacion();
+                              gesp=new GestionProductos();
+                           Facturacion f=new Facturacion(gesp);
                         f.setVisible(true);
                         this.setVisible(false);     
                           }else{
