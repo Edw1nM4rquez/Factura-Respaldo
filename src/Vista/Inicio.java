@@ -46,7 +46,7 @@ public Inicio(){
 public void initcomponents(){
 this.setSize(800,700);
 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-this.setTitle("Libreria Marquez");
+this.setTitle("Libreria Marquez, Diego, Pedro");
 
  Container cp= getContentPane();
     BorderLayout layout=new BorderLayout();
